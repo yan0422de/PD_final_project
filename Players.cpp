@@ -31,7 +31,7 @@ void Player::buyCard(Card card)
         throw logic_error("You CAN'T Buy This Card!");
 }
 
-void Player::reservedCard(Card card)
+void Player::reserveCard(Card card)
 {
     if(myReservedCards.size() == 3)
         throw logic_error("Too much reserved cards");
