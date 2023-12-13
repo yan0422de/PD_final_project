@@ -8,42 +8,44 @@
 #include "Cards.h"
 #include "Players.h"
 #include <vector>
+#include <map>
 
 using namespace std;
 
 class Game {
-public:
-    //constructor
-    Game(string filename);
-
-    //main gameplay
-    void playGame();
-
 private:
     static const int Player_CNT = 2;
     static const int Card_ROWS = 3;
     static const int Card_COLS = 4;
     static const int GEMS = 6;
 
-    //Constructor functions
-   
 
     
+   
+    // create the car deck
 
-    void populate_grid();
+    void createCardDeck();
+
+    // set the table
+    void setTable();
+
 
     //constructor vars
-    int minesCnt = 3;
-    int transportCnt = 3;
-    int vendorsCnt = 3;
+    int showedMinesCnt = 4;
+    int showedTransportCnt = 4;
+    int showedVendorsCnt = 4;
 
-    vector<Card *> mines;
-    vector<Card *> vendors;
-    vector<Card *> transport;
+    vector<Card*> mines;
+    vector<Card*> vendors;
+    vector<Card*> transport;
+
+    //main game loop vars
+    bool game_over = false;
+    bool player1_turn = true;
     
     Player* players[Player_CNT];
    
-    Card* grid[Card_ROWS][Card_COLS];
+    Card* table[Card_ROWS][Card_COLS];
 
     //Main game loop functions
     
@@ -61,9 +63,6 @@ private:
 
     void Player_Wins();
 
-    //main game loop vars
-    bool game_over = false;
-    bool player1_turn = true;
 
     // Specific action functions
 
@@ -71,6 +70,13 @@ private:
 
     //clearing memory
     void clear_memory();
+public:
+    //constructor
+    Game();
+
+    //main gameplay
+    void playGame();
+
 };
 
 #endif
