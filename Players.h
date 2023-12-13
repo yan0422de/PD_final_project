@@ -25,7 +25,6 @@ public:
     void buyReserveCard(Card card);
     void spendByGOLD(const Card& card);
     void takeDiamond(int color);
-    void takeDiamond(int color1, int color2);
     void takeDiamond(int color1, int color2, int color3);
 };
 
