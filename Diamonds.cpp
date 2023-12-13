@@ -1,4 +1,4 @@
-// Diamond.cpp
+// Diamonds.cpp
 
 #include "Diamonds.h"
 
@@ -7,6 +7,7 @@ using namespace std;
 // Init to 0
 Diamond::Diamond()
 {
+    dimonds.resize(DIAMOND_TYPE_NUM, 0);
     for(int i = 0; i < DIAMOND_TYPE_NUM; i++)
         dimonds[i] = 0;
 }
@@ -114,58 +115,3 @@ void Diamond::returnDiamond(int color1, int color2, int color3, Diamond playerD)
     playerD[color2]--;
     playerD[color3]--;
 }
-// int Diamond::getPre(int color)
-// {
-//     if(color == WHITE)
-//         return BLUE;
-//     else if(color == BLACK)
-//         return WHITE;
-//     else if(color == RED)
-//         return BLACK;
-//     else if(color == GREEN)
-//         return RED;
-//     else
-//         return GREEN;
-// }
-
-// int Diamond::getNext(int color)
-// {
-//     if(color == WHITE)
-//         return BLACK;
-//     else if(color == BLACK)
-//         return RED;
-//     else if(color == RED)
-//         return GREEN;
-//     else if(color == GREEN)
-//         return BLUE;
-//     else
-//         return WHITE;
-// }
-
-// int Diamond::getPreOpist(int color)
-// {
-//     if(color == WHITE)
-//         return GREEN;
-//     else if(color == BLACK)
-//         return BLUE;
-//     else if(color == RED)
-//         return WHITE;
-//     else if(color == GREEN)
-//         return BLACK;
-//     else
-//         return RED;
-// }
-
-// int Diamond::getNextOpist(int color)
-// {
-//     if(color == WHITE)
-//         return RED;
-//     else if(color == BLACK)
-//         return GREEN;
-//     else if(color == RED)
-//         return BLUE;
-//     else if(color == GREEN)
-//         return WHITE;
-//     else
-//         return BLACK;
-// }
