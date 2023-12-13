@@ -21,7 +21,7 @@ public:
     Player();
     ~Player();
     void buyCard(Card card);
-    void reservedCard(Card card);
+    void reserveCard(Card card);
     void buyReservedCard(Card card);
     void spendByGOLD(const Card& card);
     void takeDiamond(int color);
