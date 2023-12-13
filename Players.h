@@ -22,7 +22,7 @@ public:
     ~Player();
     void buyCard(Card card);
     void reserveCard(Card card);
-    void buyReservedCard(Card card);
+    void buyReserveCard(Card card);
     void spendByGOLD(const Card& card);
     void takeDiamond(int color);
     void takeDiamond(int color1, int color2);
