@@ -2,7 +2,7 @@
 //  PD_final_splendor
 //  Created by yan on 2023/12/13.
 
-#include "Game.h"    
+#include "game.h"    
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -15,6 +15,7 @@ using namespace std;
 //constructor
 Game::Game(){
     createCardDeck();
+    setTable();
 }
 //
 // create all cards
@@ -39,9 +40,9 @@ void Game::createCardDeck()
             if (i < 40)
                 mines.push_back(newCard);
             else if (i < 70 && i >= 40)
-                vendors.push_back(newCard);
-            else
                 transport.push_back(newCard);
+            else
+                vendors.push_back(newCard);
         }
     }
     else
@@ -51,6 +52,39 @@ void Game::createCardDeck()
     
     return;
 }
+
+// set the 12 cards on the table
+void Game::setTable(){
+    // set the first row of table with 4 cards in vendors, second with transport, and third with mines
+    for(int i = 0; i < Card_COLS; i++){
+        table[0][i] = vendors[19 - i];
+        table[1][i] = transport[29 - i];
+        table[2][i] = mines[39 - i];
+    }
+}
+// play the game
+void Game::playGame(){
+    while(!game_over){
+        if(player1_turn){
+            get_command();
+        }
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 int Game::ColorToIndex(string color) {
@@ -75,3 +109,7 @@ int Game::ColorToIndex(string color) {
     }
     return 0;
 };
+int main(){
+    Game myGame;
+    return 0;
+}
