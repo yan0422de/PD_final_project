@@ -23,7 +23,7 @@ enum DiamondType    // Global
 class Diamond
 {
 private:
-    vector<int> dimonds;
+    vector<int> diamonds;
     
 public:
     //vector<int> dimonds;
