@@ -8,6 +8,8 @@
 using namespace std;
 
 const int DIAMOND_EXP_GOLD = 5;
+// init diamonds numuber
+extern int diamond_bank[6];
 
 enum DiamondType    // Global
 {
@@ -22,11 +24,8 @@ enum DiamondType    // Global
 
 class Diamond
 {
-private:
-    vector<int> diamonds;
-    
 public:
-    //vector<int> dimonds;
+    vector<int> diamonds;
     
     // Constructor
     Diamond();
@@ -38,11 +37,7 @@ public:
     const int operator-(const Diamond& d);
     int operator[] (int i) const;
     int& operator[] (int i);
-    // Getter
-    int getAllCnt();
-    void returnDiamond(int color, Diamond playerD); // only fieldDiamond can invoke
-    void returnDiamond(int color1, int color2, Diamond playerD);
-    void returnDiamond(int color1, int color2, int color3, Diamond playerD);
+    
     // int getPre();
     // int getNext();
     // int getPreOpist();
@@ -50,3 +45,4 @@ public:
 };
 
 #endif // Diamond.h
+
