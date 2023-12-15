@@ -14,9 +14,9 @@ private:
     int color;    // discounted color
     int score;    // added point to player
     Diamond spendDimd;
-    vector<Card> cardDeck;
     
 public:
+    Card(){};
     // Constructor
     Card(int level, int color, int score, int white, int black, int red, int green, int blue);
     // Copy Constructor
@@ -28,7 +28,8 @@ public:
     int getColor();
     Diamond getDiamond() const;
     // Initalize all cards
-    vector<Card> createCardDeck();
+    int getEachDiamond(int idx) const;
 };
 
 #endif
+
