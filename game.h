@@ -25,15 +25,15 @@ private:
     // create the car deck
     void createCardDeck();
 
-    // set the game table
-    void setTable();
+    // set the game board
+    void setboard();
 
     // constructor vars
     int showedMinesCnt = 4;
     int showedTransportCnt = 4;
     int showedVendorsCnt = 4;
     // represent player 1 or 2
-    int num = 0;
+    int playerNum = 0;
 
     // store each level of cards
     vector<Card*> mines;
@@ -47,19 +47,18 @@ private:
     
     Player* players[Players_CNT];
    
-    Card* table[Card_ROWS][Card_COLS];
+    Card* board[Card_ROWS][Card_COLS];
 
     //Main game loop functions
 
-    // 有個函數要更新被買走的牌（紀錄該等級的牌已經拿幾張出來），有個函數要檢查排堆（40, 30, 20）還有沒有牌
+    // 更新被買走的牌（紀錄該等級的牌已經拿幾張出來），有個函數要檢查排堆（40, 30, 20）還有沒有牌
+    void update_grid(int playerNum, int remove_gems[5], int gold);
 
-    void update_player(int num, int remove_gems[5], int gold);
+    void update_player(int playerNum, int remove_gems[5], int gold);
 
-    void update_grid(int num, int remove_gems[5], int gold);
+    void gem_cnt_over_10(int playerNum);
 
-    void gem_cnt_over_10(int num);
-
-    void get_command(int num);
+    void get_command(int playerNum);
 
     bool Player_Wins();
 
@@ -82,4 +81,3 @@ public:
 };
 
 #endif
-
