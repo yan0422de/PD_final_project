@@ -1,8 +1,10 @@
-// Diamond.cpp
+// Diamonds.cpp
 
 #include "Diamonds.h"
 
 using namespace std;
+
+int diamond_bank[6] = {4, 4, 4, 4, 4, 5};
 
 // Init to 0
 Diamond::Diamond()
@@ -85,33 +87,3 @@ int& Diamond::operator[] (int i) // can be assigned or modified
     return diamonds[i];
 }
 
-int Diamond::getAllCnt()
-{
-    int cnt = 0;
-    for(int i = 0; i < DIAMOND_TYPE_NUM; i++)
-        cnt += diamonds[i];
-    return cnt;
-}
-
-// only fieldDiamond can invoke
-void Diamond::returnDiamond(int color, Diamond playerD) // return 1
-{
-    this->diamonds[color]++;
-    playerD[color]--;
-} 
-void Diamond::returnDiamond(int color1, int color2, Diamond playerD) // return 2
-{
-    this->diamonds[color1]++;
-    this->diamonds[color2]++;
-    playerD[color1]--;
-    playerD[color2]--;
-}
-void Diamond::returnDiamond(int color1, int color2, int color3, Diamond playerD) // return 3
-{
-    this->diamonds[color1]++;
-    this->diamonds[color2]++;
-    this->diamonds[color3]++;
-    playerD[color1]--;
-    playerD[color2]--;
-    playerD[color3]--;
-}
