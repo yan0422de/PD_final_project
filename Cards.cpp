@@ -54,4 +54,9 @@ Diamond Card::getDiamond() const
     return this->spendDimd;
 }
 
+int Card::getEachDiamond(int idx) const
+{
+    return this->spendDimd[idx];
+}
+
 
