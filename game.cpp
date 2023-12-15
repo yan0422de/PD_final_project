@@ -14,18 +14,18 @@ using namespace std;
 //constructor
 Game::Game(){
     createCardDeck();
-    setTable();
+    setboard();
     playGame();
 }
 
 // play the game
 void Game::playGame(){
     while(!game_over){
-        num = player1_turn ? 1 : 2;    // identify which player round
-       
-        get_command(num);
+        // determine whose turn it is
+        playerNum = player1_turn ? 1 : 2;
+        get_command(playerNum);
         
-        gem_cnt_over_10(num);
+        gem_cnt_over_10(playerNum);
         
         if(Player_Wins()){
             clear_memory();
@@ -71,66 +71,78 @@ void Game::createCardDeck()
     return;
 }
 
-/* set the 12 cards on the table. Set the first row of table with 4 cards in vendors, second with transport, and third with mines
+/* set the 12 cards on the board. Set the first row of board with 4 cards in vendors, second with transport, and third with mines
  */
-void Game::setTable(){
+void Game::setboard(){
     for(int i = 0; i < Card_COLS; i++){
-        table[0][i] = vendors[19 - i];
-        table[1][i] = transport[29 - i];
-        table[2][i] = mines[39 - i];
+        board[0][i] = vendors[19 - i];
+        board[1][i] = transport[29 - i];
+        board[2][i] = mines[39 - i];
     }
 }
 
-void Game::get_command(int num){
+void Game::get_command(int playerNum){
     // receive info. from frontend
-    players[num]->buyCard(table[0][0]);    // for test
+    int cardRow = 0, cardCol = 0, colorIdx_1 = 0, colorIdx_2 = 0, colorIdx_3 = 0;
+    bool buy = 0, buyReserve = 0, take2Gems = 0, take3Gems = 0, reserve = 0;
+    // determine which action to do
+    if(buy)
+        players[playerNum - 1]->buyCard(board[cardRow][cardCol]);    // for test
+    if(buyReserve)
+        players[playerNum - 1]->buyReservedCard(board[cardRow][cardCol]);
+    if(take2Gems)
+        players[playerNum - 1]->takeDiamond(colorIdx_1);
+    if(take3Gems)
+        players[playerNum - 1]->takeDiamond(colorIdx_1, colorIdx_2, colorIdx_3);
+    if(reserve)
+        players[playerNum - 1]->reserveCard(board[cardRow][cardCol]);
+    
     return;
 }
 
-void Game::gem_cnt_over_10(int num){
-    int total_gem = players[num] -> getAllGemCnt();
-    
+void Game::gem_cnt_over_10(int playerNum){
+    int total_gem = players[playerNum] -> getAllGemCnt();
+
     if(total_gem > 10){
         if(total_gem == 11){
             int color = 0;
             //get_command(num);
-            players[num]->returnDiamond(color);
+            players[playerNum]->returnDiamond(color);
         }
         else if(total_gem == 12){
             int color1 = 0, color2 = 0;
             //get_command(num);
-            players[num]->returnDiamond(color1, color2);
+            players[playerNum]->returnDiamond(color1, color2);
         }
         else if(total_gem == 13){
             int color1 = 0, color2 = 0, color3 = 0;
             //get_command(num);
-            players[num]->returnDiamond(color1, color2, color3);
+            players[playerNum]->returnDiamond(color1, color2, color3);
         }
     }
-    
     return;
 }
 
 bool Game::Player_Wins(){
     if(players[1] -> getPoint() >= 15){
-        // player 2 can play once
+        // player 2 can play one last round
         // get_command(num)
         if(players[2] -> getPoint() < 15){
             return true;
         }
         else{
-            isTied = true;    // tie
+            isTied = true; // tie
             return true;
         }
     }
     else if(players[2] -> getPoint() >= 15){
         return true;
     }
-    
     return false;
 }
+
 int Game::ColorToIndex(string color) {
-    //returns pertinent color
+    // returns pertinent color
     if (color == "WHITE") {
         return 0;
     }
