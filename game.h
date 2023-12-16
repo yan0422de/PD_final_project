@@ -30,7 +30,7 @@ private:
     int showedMinesCnt = 4;
     int showedTransportCnt = 4;
     int showedVendorsCnt = 4;
-    // represent player 1 or 2
+    // represent player 1 or 2. 1 for player 1, 2 for player 2 
     int playerNum = 0;
 
     // store each level of cards
