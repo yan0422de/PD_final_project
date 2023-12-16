@@ -85,7 +85,7 @@ void Game::get_command(int playerNum){
     // receive info. from frontend
     int cardRow = 0, cardCol = 0, colorIdx_1 = 0, colorIdx_2 = 0, colorIdx_3 = 0;
     bool buy = 0, buyReserve = 0, take2Gems = 0, take3Gems = 0, reserve = 0;
-    // determine which action to do
+    // determine which actions to do
     if(buy)
         players[playerNum - 1]->buyCard(board[cardRow][cardCol]);    // for test
     if(buyReserve)
