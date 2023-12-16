@@ -13,19 +13,21 @@ using namespace std;
 
 //constructor
 Game::Game(){
+    // prepare for the game
     createCardDeck();
     setboard();
+    // start the game
     playGame();
 }
 
-// play the game
+// play the game  
 void Game::playGame(){
     while(!game_over){
         // determine whose turn it is
         playerNum = player1_turn ? 1 : 2;
-        get_command(playerNum);
+        get_command(playerNum - 1);
         
-        gem_cnt_over_10(playerNum);
+        gem_cnt_over_10(playerNum - 1);
         
         if(Player_Wins()){
             clear_memory();
@@ -107,27 +109,27 @@ void Game::gem_cnt_over_10(int playerNum){
         if(total_gem == 11){
             int color = 0;
             //get_command(num);
-            players[playerNum]->returnDiamond(color);
+            players[playerNum - 1]->returnDiamond(color);
         }
         else if(total_gem == 12){
             int color1 = 0, color2 = 0;
             //get_command(num);
-            players[playerNum]->returnDiamond(color1, color2);
+            players[playerNum - 1]->returnDiamond(color1, color2);
         }
         else if(total_gem == 13){
             int color1 = 0, color2 = 0, color3 = 0;
             //get_command(num);
-            players[playerNum]->returnDiamond(color1, color2, color3);
+            players[playerNum - 1]->returnDiamond(color1, color2, color3);
         }
     }
     return;
 }
 
 bool Game::Player_Wins(){
-    if(players[1] -> getPoint() >= 15){
+    if(players[0] -> getPoint() >= 15){
         // player 2 can play one last round
         // get_command(num)
-        if(players[2] -> getPoint() < 15){
+        if(players[1] -> getPoint() < 15){
             return true;
         }
         else{
@@ -135,7 +137,7 @@ bool Game::Player_Wins(){
             return true;
         }
     }
-    else if(players[2] -> getPoint() >= 15){
+    else if(players[1] -> getPoint() >= 15){
         return true;
     }
     return false;
