@@ -25,9 +25,9 @@ void Game::playGame(){
     while(!game_over){
         // determine whose turn it is
         playerNum = player1_turn ? 1 : 2;
-        get_command(playerNum - 1);
+        get_command(playerNum);
         
-        gem_cnt_over_10(playerNum - 1);
+        gem_cnt_over_10(playerNum);
         
         if(Player_Wins()){
             clear_memory();
@@ -85,40 +85,86 @@ void Game::setboard(){
 
 void Game::get_command(int playerNum){
     // receive info. from frontend
-    int cardRow = 0, cardCol = 0, colorIdx_1 = 0, colorIdx_2 = 0, colorIdx_3 = 0;
+    // note: these int are indexes
+    int cardRow = 0, cardCol = 0; 
+    int colorIdx_1 = 0, colorIdx_2 = 0, colorIdx_3 = 0;
     bool buy = 0, buyReserve = 0, take2Gems = 0, take3Gems = 0, reserve = 0;
     // determine which actions to do
     if(buy)
-        players[playerNum - 1]->buyCard(board[cardRow][cardCol]);   
+        players[playerNum - 1]->buyCard(board[cardRow][cardCol]);
+        update_board(cardRow, cardCol);
     if(buyReserve)
         players[playerNum - 1]->buyReservedCard(board[cardRow][cardCol]);
     if(take2Gems)
         players[playerNum - 1]->takeDiamond(colorIdx_1);
     if(take3Gems)
         players[playerNum - 1]->takeDiamond(colorIdx_1, colorIdx_2, colorIdx_3);
-    if(reserve)
+    if(reserve){
         players[playerNum - 1]->reserveCard(board[cardRow][cardCol]);
-    
+        update_board(cardRow, cardCol);
+    }
     return;
 }
 
+
+
+// update the board 
+void Game::update_board(int cardRow, int cardCol){
+    delete board[cardRow][cardCol];
+    board[cardRow][cardCol] = nullptr;
+    // check if there is enough card to update the board
+    if(cardRow == 0 && showedMinesCnt <= 39){
+        board[cardRow][cardCol] = mines[39 - showedMinesCnt];
+        showedMinesCnt++;
+    }
+    if(cardRow == 1 && showedTransportCnt <= 29){
+        board[cardRow][cardCol] = transport[29 - showedTransportCnt];
+        showedTransportCnt++;
+    }
+    if(cardRow == 2 && showedVendorsCnt <= 19){
+        board[cardRow][cardCol] = vendors[19 - showedVendorsCnt];
+        showedVendorsCnt++;
+    }
+
+}
+    
+
+
+
+
+
+
+
+
 void Game::gem_cnt_over_10(int playerNum){
-    int total_gem = players[playerNum] -> getAllGemCnt();
+    int total_gem = players[playerNum - 1] -> getAllGemCnt();
 
     if(total_gem > 10){
         if(total_gem == 11){
             int color = 0;
-            //get_command(num);
+            //==========================================
+
+
+            // color = i;
+            //==========================================
             players[playerNum - 1]->returnDiamond(color);
         }
         else if(total_gem == 12){
             int color1 = 0, color2 = 0;
-            //get_command(num);
+            //===========================================
+
+
+
+            //===========================================
             players[playerNum - 1]->returnDiamond(color1, color2);
         }
         else if(total_gem == 13){
             int color1 = 0, color2 = 0, color3 = 0;
-            //get_command(num);
+            //===========================================
+
+
+
+            //===========================================
             players[playerNum - 1]->returnDiamond(color1, color2, color3);
         }
     }
@@ -128,7 +174,7 @@ void Game::gem_cnt_over_10(int playerNum){
 bool Game::Player_Wins(){
     if(players[0] -> getPoint() >= 15){
         // player 2 can play one last round
-        // get_command(num)
+        get_command(2);
         if(players[1] -> getPoint() < 15){
             return true;
         }
