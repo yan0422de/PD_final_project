@@ -14,6 +14,8 @@ using namespace std;
 
 class Game {
 private:
+    // init diamonds numuber
+    // int diamond_bank[6] = {4, 4, 4, 4, 4, 5};
     
     static const int Players_CNT = 2;
     static const int Card_ROWS = 3;
@@ -30,13 +32,13 @@ private:
     int showedMinesCnt = 4;
     int showedTransportCnt = 4;
     int showedVendorsCnt = 4;
-    // represent player 1 or 2. 1 for player 1, 2 for player 2, default 0
+    // represent player 1 or 2
     int playerNum = 0;
 
     // store each level of cards
     vector<Card*> mines;
-    vector<Card*> vendors;
     vector<Card*> transport;
+    vector<Card*> vendors;
 
     //main game loop vars
     bool game_over = false;
@@ -49,14 +51,13 @@ private:
 
     //Main game loop functions
 
-    // 更新被買走的牌（紀錄該等級的牌已經拿幾張出來），有個函數要檢查排堆（40, 30, 20）還有沒有牌
-    void update_grid(int playerNum, int remove_gems[5], int gold);
-
-    void update_player(int playerNum, int remove_gems[5], int gold);
-
+    
     void gem_cnt_over_10(int playerNum);
 
     void get_command(int playerNum);
+
+    // 更新被買走的牌（紀錄該等級的牌已經拿幾張出來），有個函數要檢查排堆（40, 30, 20）還有沒有牌
+    void update_board(int cardRow, int cardCol);
 
     bool Player_Wins();
 
@@ -72,6 +73,7 @@ public:
     //constructor
     Game();
 
+    
     //main gameplay
     void playGame();
 
