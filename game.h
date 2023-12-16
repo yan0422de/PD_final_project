@@ -14,8 +14,6 @@ using namespace std;
 
 class Game {
 private:
-    // init diamonds numuber
-    // int diamond_bank[6] = {4, 4, 4, 4, 4, 5};
     
     static const int Players_CNT = 2;
     static const int Card_ROWS = 3;
