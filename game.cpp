@@ -87,7 +87,7 @@ void Game::get_command(int playerNum){
     bool buy = 0, buyReserve = 0, take2Gems = 0, take3Gems = 0, reserve = 0;
     // determine which actions to do
     if(buy)
-        players[playerNum - 1]->buyCard(board[cardRow][cardCol]);    // for test
+        players[playerNum - 1]->buyCard(board[cardRow][cardCol]);   
     if(buyReserve)
         players[playerNum - 1]->buyReservedCard(board[cardRow][cardCol]);
     if(take2Gems)
