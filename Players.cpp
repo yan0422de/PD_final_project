@@ -9,7 +9,7 @@ using namespace std;
 Player::Player() : point(0), myDiamonds(0)
 {
     for(int i = 0; i < MAX_BONUS_NUM; i++)
-        this->bonus[i] = 0;
+        this->discount[i] = 0;
 }
 
 void Player::buyCard(Card* card)
@@ -17,6 +17,10 @@ void Player::buyCard(Card* card)
     if(this->myDiamonds >= card->getDiamond()){
         // spend diamonds
         this->myDiamonds -= card->getDiamond();
+        // update diamond_bank
+        for(int color = 0; color < 4; color++){
+            diamond_bank[color] += card->getDiamond()[color];
+        }
     }
     else if(this->myDiamonds[GOLD] >= card->getDiamond() - this->myDiamonds)
         spendByGOLD(*card); // only when diamonds are insufficient
@@ -26,7 +30,7 @@ void Player::buyCard(Card* card)
     // update personal status
     this->myCards.push_back(card);
     this->point += card->getScore();
-    this->bonus[card->getColor()]++;
+    this->discount[card->getColor()]++;
 }
 
 void Player::reserveCard(Card* card)
@@ -59,33 +63,39 @@ void Player::spendByGOLD(const Card& card)
         int diffDiamonds = card.getDiamond()[color] - this->myDiamonds[color];
         if(diffDiamonds > 0 && this->myDiamonds[GOLD] >= diffDiamonds) // spend by GOLD
         {
+            // update diamond_bank
+            diamond_bank[color] += this->myDiamonds[color];
             this->myDiamonds[color] = 0;
+            
             this->myDiamonds[GOLD] -= diffDiamonds;
+            diamond_bank[GOLD] += diffDiamonds;
         }
-        else // spend by diamonds
+        else {
+            // spend by diamonds
             this->myDiamonds[color] -= card.getDiamond()[color];
+            // update diamond_bank
+            diamond_bank[color] += card.getDiamond()[color];
+        }
     }
+
 }
 
 void Player::takeDiamond(int color1, int color2, int color3)
 {
-    if(getAllGemCnt() > 7)
-    {
-        int diff = 10 - getAllGemCnt();
-        throw logic_error("Please Return " + to_string(diff));
-    } // game will catch the exception and invoke Diamond::returnDiamond()
+    
     this->myDiamonds[color1]++;
+    diamond_bank[color2]--;
     this->myDiamonds[color2]++;
+    diamond_bank[color2]--;
     this->myDiamonds[color3]++;
+    diamond_bank[color3]--;
 }
+
 void Player::takeDiamond(int color)
 {
-    if(getAllGemCnt() > 8)
-    {
-        int diff = 10 - getAllGemCnt();
-        throw logic_error("Please Return " + to_string(diff));
-    } // game will catch the exception and invoke Diamond::returnDiamond()
+    
     this->myDiamonds[color] += 2;
+    diamond_bank[color] -= 2;
 }
 
 int Player::getAllGemCnt()
@@ -95,7 +105,6 @@ int Player::getAllGemCnt()
         cnt += this->myDiamonds[i];
     }
     return cnt;
-
 }
 
 // only fieldDiamond can invoke
