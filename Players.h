@@ -28,12 +28,12 @@ public:
     void buyReservedCard(Card* card);
     void spendByGOLD(const Card& card);
 
-    void takeDiamond(int color);
-    void takeDiamond(int color1, int color2, int color3);
+    void takeDiamond(int colorIdx);
+    void takeDiamond(int colorIdx_1, int colorIdx_2, int colorIdx_3);
 
-    void returnDiamond(int color); 
-    void returnDiamond(int color1, int color2);
-    void returnDiamond(int color1, int color2, int color3);
+    void returnDiamond(int colorIdx);
+    void returnDiamond(int colorIdx_1, int colorIdx_2);
+    void returnDiamond(int colorIdx_1, int colorIdx_2, int colorIdx_3);
 };
 
 #endif
