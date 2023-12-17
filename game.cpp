@@ -11,17 +11,17 @@
  
 using namespace std;
 
-//constructor
+// constructor
 Game::Game(){
+    // create player object and store them as pointers
     for(int i = 0; i < Players_CNT; i++)
         players[i] = new Player;
     // prepare for the game
     createCardDeck();
     setboard();
-    // start the game
-    playGame();
-}
 
+}
+// destructor
 Game::~Game(){
     for(int i = 0; i < Players_CNT; i++){
         delete players[i];
@@ -100,9 +100,10 @@ void Game::get_command(int playerNum){
     int colorIdx_1 = 0, colorIdx_2 = 0, colorIdx_3 = 0;
     bool buy = 0, buyReserve = 0, take2Gems = 0, take3Gems = 0, reserve = 0;
     // determine which actions to do
-    if(buy)
+    if(buy){
         players[playerNum - 1]->buyCard(board[cardRow][cardCol]);
         update_board(cardRow, cardCol);
+    }
     if(buyReserve)
         players[playerNum - 1]->buyReservedCard(board[cardRow][cardCol]);
     if(take2Gems)
@@ -120,7 +121,7 @@ void Game::get_command(int playerNum){
 
 // update the board
 void Game::update_board(int cardRow, int cardCol){
-    delete board[cardRow][cardCol];
+
     board[cardRow][cardCol] = nullptr;
     // check if there is enough card to update the board
     if(cardRow == 0 && showedMinesCnt <= 39){
@@ -189,7 +190,7 @@ bool Game::Player_Wins(){
     else if(players[1] -> getPoint() >= 15){    // player 2 win
         return true;
     }
-    return true;
+    return false;
 }
 
 int Game::ColorToIndex(string color_str) {
@@ -231,3 +232,4 @@ void Game::clear_memory() {
     }
     vendors.clear();
 }
+
