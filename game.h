@@ -12,7 +12,6 @@
 
 using namespace std;
 
-static const int Players_CNT = 2;
 
 class Game {
 private:
@@ -20,6 +19,7 @@ private:
     static const int Card_ROWS = 3;
     static const int Card_COLS = 4;
     static const int GEMS = 6;
+    static const int Players_CNT = 2;
 
     // create the car deck
     void createCardDeck();
