@@ -20,11 +20,12 @@ Game::Game(){
     playGame();
 }
 
-// play the game  
+// play the game
 void Game::playGame(){
     while(!game_over){
         // determine whose turn it is
         playerNum = player1_turn ? 1 : 2;
+        
         get_command(playerNum);
         
         gem_cnt_over_10(playerNum);
@@ -44,7 +45,7 @@ void Game::createCardDeck()
     ifstream cardFile("card_data.txt");
     if(cardFile)
     {
-        int level = 0, score = 0, color = 0, white = 0, black = 0, red = 0, green = 0, blue = 0;
+        int level = 0, score = 0, colorIdx = 0, white = 0, black = 0, red = 0, green = 0, blue = 0;
         string colorName;
         for(int i = 0; i < MAX_CARD_NUM; i++)
         {
@@ -52,9 +53,9 @@ void Game::createCardDeck()
             cardFile >> level >> score >> colorName >> white >> black >> red >> green >> blue;
             
             // color to index
-            color = ColorToIndex(colorName);
+            colorIdx = ColorToIndex(colorName);
             
-            Card* newCard = new Card(level, color, score, white, black, red, green, blue);
+            Card* newCard = new Card(level, colorIdx, score, white, black, red, green, blue);
 
             // Add the raw pointer to the appropriate vector
             if (i < 40)
@@ -86,7 +87,7 @@ void Game::setboard(){
 void Game::get_command(int playerNum){
     // receive info. from frontend
     // note: these int are indexes
-    int cardRow = 0, cardCol = 0; 
+    int cardRow = 0, cardCol = 0;
     int colorIdx_1 = 0, colorIdx_2 = 0, colorIdx_3 = 0;
     bool buy = 0, buyReserve = 0, take2Gems = 0, take3Gems = 0, reserve = 0;
     // determine which actions to do
@@ -108,7 +109,7 @@ void Game::get_command(int playerNum){
 
 
 
-// update the board 
+// update the board
 void Game::update_board(int cardRow, int cardCol){
     delete board[cardRow][cardCol];
     board[cardRow][cardCol] = nullptr;
@@ -127,47 +128,40 @@ void Game::update_board(int cardRow, int cardCol){
     }
 
 }
-    
-
-
-
-
-
-
-
 
 void Game::gem_cnt_over_10(int playerNum){
     int total_gem = players[playerNum - 1] -> getAllGemCnt();
 
     if(total_gem > 10){
         if(total_gem == 11){
-            int color = 0;
+            int colorIdx = 0;
             //==========================================
 
 
             // color = i;
             //==========================================
-            players[playerNum - 1]->returnDiamond(color);
+            players[playerNum - 1]->returnDiamond(colorIdx);
         }
         else if(total_gem == 12){
-            int color1 = 0, color2 = 0;
+            int colorIdx_1 = 0, colorIdx_2 = 0;
             //===========================================
 
 
 
             //===========================================
-            players[playerNum - 1]->returnDiamond(color1, color2);
+            players[playerNum - 1]->returnDiamond(colorIdx_1, colorIdx_2);
         }
         else if(total_gem == 13){
-            int color1 = 0, color2 = 0, color3 = 0;
+            int colorIdx_1 = 0, colorIdx_2 = 0, colorIdx_3 = 0;
             //===========================================
 
 
 
             //===========================================
-            players[playerNum - 1]->returnDiamond(color1, color2, color3);
+            players[playerNum - 1]->returnDiamond(colorIdx_1, colorIdx_2, colorIdx_3);
         }
     }
+    
     return;
 }
 
@@ -175,7 +169,7 @@ bool Game::Player_Wins(){
     if(players[0] -> getPoint() >= 15){
         // player 2 can play one last round
         get_command(2);
-        if(players[1] -> getPoint() < 15){
+        if(players[1] -> getPoint() < 15){    // player 1 win
             return true;
         }
         else{
@@ -183,30 +177,30 @@ bool Game::Player_Wins(){
             return true;
         }
     }
-    else if(players[1] -> getPoint() >= 15){
+    else if(players[1] -> getPoint() >= 15){    // player 2 win
         return true;
     }
-    return false;
+    return true;
 }
 
-int Game::ColorToIndex(string color) {
+int Game::ColorToIndex(string color_str) {
     // returns pertinent color
-    if (color == "WHITE") {
+    if (color_str == "WHITE") {
         return 0;
     }
-    if (color == "BLACK") {
+    if (color_str == "BLACK") {
         return 1;
     }
-    if (color == "RED") {
+    if (color_str == "RED") {
         return 2;
     }
-    if (color == "GREEN") {
+    if (color_str == "GREEN") {
         return 3;
     }
-    if (color == "BLUE") {
+    if (color_str == "BLUE") {
         return 4;
     }
-    if (color == "GOLD") {
+    if (color_str == "GOLD") {
         return 5;
     }
     return 0;
