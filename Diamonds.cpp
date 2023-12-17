@@ -8,7 +8,6 @@ int diamond_bank[6] = {4, 4, 4, 4, 4, 5};
 
 // Init to 0
 Diamond::Diamond(){
-    diamonds.resize(DIAMOND_TYPE_NUM, 0);
     for(int i = 0; i < DIAMOND_TYPE_NUM; i++)
         diamonds[i] = 0;
 }
