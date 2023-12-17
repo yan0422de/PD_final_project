@@ -14,9 +14,7 @@ using namespace std;
 
 class Game {
 private:
-    // init diamonds numuber
-    // int diamond_bank[6] = {4, 4, 4, 4, 4, 5};
-    
+
     static const int Players_CNT = 2;
     static const int Card_ROWS = 3;
     static const int Card_COLS = 4;
@@ -51,7 +49,6 @@ private:
 
     //Main game loop functions
 
-    
     void gem_cnt_over_10(int playerNum);
 
     void get_command(int playerNum);
@@ -61,10 +58,9 @@ private:
 
     bool Player_Wins();
 
-
     // Specific action functions
 
-    int ColorToIndex(string color);
+    int ColorToIndex(string color_str);
 
     // clearing memory
     void clear_memory();
@@ -73,10 +69,8 @@ public:
     //constructor
     Game();
 
-    
     //main gameplay
     void playGame();
-
     
 };
 
