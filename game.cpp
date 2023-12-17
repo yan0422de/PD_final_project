@@ -13,11 +13,20 @@ using namespace std;
 
 //constructor
 Game::Game(){
+    for(int i = 0; i < Players_CNT; i++)
+        players[i] = new Player;
     // prepare for the game
     createCardDeck();
     setboard();
     // start the game
     playGame();
+}
+
+Game::~Game(){
+    for(int i = 0; i < Players_CNT; i++){
+        delete players[i];
+        players[i] = nullptr;
+    }
 }
 
 // play the game
