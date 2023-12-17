@@ -1,8 +1,10 @@
-﻿#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
 #include "Cards.h"
-#include "Gem.h"
+#include "Diamonds.h"
+
+using namespace std;
 
 int main()
 {
@@ -65,23 +67,23 @@ int main()
     Discount2.setFillColor(sf::Color::White);
 
 
-    // Create Gem board
-    sf::Text Gem1("Gem:", font);
-    Gem1.setPosition(430.f, 745.f);
-    Gem1.setCharacterSize(20);
-    Gem1.setStyle(sf::Text::Bold);
-    Gem1.setFillColor(sf::Color::White);
+    // Create diamond board
+    sf::Text diamond1("Diamond:", font);
+    diamond1.setPosition(430.f, 745.f);
+    diamond1.setCharacterSize(20);
+    diamond1.setStyle(sf::Text::Bold);
+    diamond1.setFillColor(sf::Color::White);
 
-    sf::Text Gem2("Gem:", font);
-    Gem2.setPosition(430.f, 55.f);
-    Gem2.setCharacterSize(20);
-    Gem2.setStyle(sf::Text::Bold);
-    Gem2.setFillColor(sf::Color::White);
+    sf::Text diamond2("Diamond:", font);
+    diamond2.setPosition(430.f, 55.f);
+    diamond2.setCharacterSize(20);
+    diamond2.setStyle(sf::Text::Bold);
+    diamond2.setFillColor(sf::Color::White);
 
 
     // discount position
-    std::vector<sf::Text> discountPlayer1(6, sf::Text("0", font));
-    std::vector<sf::Text> discountPlayer2(6, sf::Text("0", font));
+    vector<sf::Text> discountPlayer1(6, sf::Text("0", font));
+    vector<sf::Text> discountPlayer2(6, sf::Text("0", font));
     for (int i = 0; i < 6; i++) {
         discountPlayer1[i].setPosition((i % 6) * 50.f + 545.f, 712.f);
         discountPlayer1[i].setCharacterSize(20);
@@ -121,60 +123,60 @@ int main()
     player2Score.setFillColor(sf::Color::White);
 
     // 寶石數
-    std::vector<sf::Text> GemNumBoard(6, sf::Text("4", font));
-    std::vector<sf::Text> GemNumPlayer1(6, sf::Text("0", font));
-    std::vector<sf::Text> GemNumPlayer2(6, sf::Text("0", font));
+    vector<sf::Text> diamondNumBoard(6, sf::Text("4", font));
+    vector<sf::Text> diamondNumPlayer1(6, sf::Text("0", font));
+    vector<sf::Text> diamondNumPlayer2(6, sf::Text("0", font));
     for (int i = 0; i < 6; i++) {
-        GemNumBoard[i].setPosition(35.f, (i % 6) * 70.f + 215.f);
-        GemNumBoard[i].setCharacterSize(20);
-        GemNumBoard[i].setStyle(sf::Text::Bold);
-        GemNumBoard[i].setFillColor(sf::Color::White);
+        diamondNumBoard[i].setPosition(35.f, (i % 6) * 70.f + 215.f);
+        diamondNumBoard[i].setCharacterSize(20);
+        diamondNumBoard[i].setStyle(sf::Text::Bold);
+        diamondNumBoard[i].setFillColor(sf::Color::White);
 
-        GemNumPlayer1[i].setPosition((i % 6) * 50.f + 545.f, 760.f);
-        GemNumPlayer1[i].setCharacterSize(20);
-        GemNumPlayer1[i].setStyle(sf::Text::Bold);
-        GemNumPlayer1[i].setFillColor(sf::Color::White);
+        diamondNumPlayer1[i].setPosition((i % 6) * 50.f + 545.f, 760.f);
+        diamondNumPlayer1[i].setCharacterSize(20);
+        diamondNumPlayer1[i].setStyle(sf::Text::Bold);
+        diamondNumPlayer1[i].setFillColor(sf::Color::White);
 
-        GemNumPlayer2[i].setPosition((i % 6) * 50.f + 545.f, 66.f);
-        GemNumPlayer2[i].setCharacterSize(20);
-        GemNumPlayer2[i].setStyle(sf::Text::Bold);
-        GemNumPlayer2[i].setFillColor(sf::Color::White);
+        diamondNumPlayer2[i].setPosition((i % 6) * 50.f + 545.f, 66.f);
+        diamondNumPlayer2[i].setCharacterSize(20);
+        diamondNumPlayer2[i].setStyle(sf::Text::Bold);
+        diamondNumPlayer2[i].setFillColor(sf::Color::White);
     }
 
     // 寶石的位置
-    std::vector<Diamonds*> gem(6);
-    std::vector<Diamonds*> gemPlayer1(6);
-    std::vector<Diamonds*> gemPlayer2(6);
+    vector<Diamonds*> diamond(6);
+    vector<Diamonds*> diamondPlayer1(6);
+    vector<Diamonds*> diamondPlayer2(6);
     for (int i = 0; i < 6; i++) {
-        gem[i] = new Diamonds(sf::CircleShape(20.f), sf::Color::White, sf::Vector2f(50.f, (i % 6) * 70.f + 200.f));
-        gemPlayer1[i] = new Diamonds(sf::CircleShape(20.f), sf::Color::White, sf::Vector2f(550.f + (i % 6) * 50.f, 730.f));
-        gemPlayer2[i] = new Diamonds(sf::CircleShape(20.f), sf::Color::White, sf::Vector2f(550.f + (i % 6) * 50.f, 35.f));
+        diamond[i] = new Diamonds(sf::CircleShape(20.f), sf::Color::White, sf::Vector2f(50.f, (i % 6) * 70.f + 200.f));
+        diamondPlayer1[i] = new Diamonds(sf::CircleShape(20.f), sf::Color::White, sf::Vector2f(550.f + (i % 6) * 50.f, 730.f));
+        diamondPlayer2[i] = new Diamonds(sf::CircleShape(20.f), sf::Color::White, sf::Vector2f(550.f + (i % 6) * 50.f, 35.f));
     }
 
     // 寶石的顏色
-    gem[1]->getShape()->setFillColor(sf::Color::Black);
-    gem[2]->getShape()->setFillColor(sf::Color::Red);
-    gem[3]->getShape()->setFillColor(sf::Color::Green);
-    gem[4]->getShape()->setFillColor(sf::Color::Blue);
-    gem[5]->getShape()->setFillColor(sf::Color::Yellow);
+    diamond[1]->getShape()->setFillColor(sf::Color::Black);
+    diamond[2]->getShape()->setFillColor(sf::Color::Red);
+    diamond[3]->getShape()->setFillColor(sf::Color::Green);
+    diamond[4]->getShape()->setFillColor(sf::Color::Blue);
+    diamond[5]->getShape()->setFillColor(sf::Color::Yellow);
 
-    gemPlayer1[1]->getShape()->setFillColor(sf::Color::Black);
-    gemPlayer1[2]->getShape()->setFillColor(sf::Color::Red);
-    gemPlayer1[3]->getShape()->setFillColor(sf::Color::Green);
-    gemPlayer1[4]->getShape()->setFillColor(sf::Color::Blue);
-    gemPlayer1[5]->getShape()->setFillColor(sf::Color::Yellow);
+    diamondPlayer1[1]->getShape()->setFillColor(sf::Color::Black);
+    diamondPlayer1[2]->getShape()->setFillColor(sf::Color::Red);
+    diamondPlayer1[3]->getShape()->setFillColor(sf::Color::Green);
+    diamondPlayer1[4]->getShape()->setFillColor(sf::Color::Blue);
+    diamondPlayer1[5]->getShape()->setFillColor(sf::Color::Yellow);
 
-    gemPlayer2[1]->getShape()->setFillColor(sf::Color::Black);
-    gemPlayer2[2]->getShape()->setFillColor(sf::Color::Red);
-    gemPlayer2[3]->getShape()->setFillColor(sf::Color::Green);
-    gemPlayer2[4]->getShape()->setFillColor(sf::Color::Blue);
-    gemPlayer2[5]->getShape()->setFillColor(sf::Color::Yellow);
+    diamondPlayer2[1]->getShape()->setFillColor(sf::Color::Black);
+    diamondPlayer2[2]->getShape()->setFillColor(sf::Color::Red);
+    diamondPlayer2[3]->getShape()->setFillColor(sf::Color::Green);
+    diamondPlayer2[4]->getShape()->setFillColor(sf::Color::Blue);
+    diamondPlayer2[5]->getShape()->setFillColor(sf::Color::Yellow);
     
 
-    // 初始化寶石
-    std::vector<Cards*> vendors(20);
-    std::vector<Cards*> transport(20);
-    std::vector<Cards*> mines(20);
+    // 初始化卡片
+    vector<Cards*> vendors(20);
+    vector<Cards*> transport(20);
+    vector<Cards*> mines(20);
     for (int i = 0; i < 20; i++) {
         vendors[i] = new Cards(i, "vendors", sf::RectangleShape(sf::Vector2f(75.0f, 130.0f)), sf::Vector2f(200.f, 180.0f), sf::Vector2f(200.f, 180.0f));
     }
@@ -196,9 +198,9 @@ int main()
     }
 
     // 牌桌上可以放牌的位置
-    std::vector<sf::Vector2f> vendorsPosition(4);
-    std::vector<sf::Vector2f> transportPosition(4);
-    std::vector<sf::Vector2f> minesPosition(4);
+    vector<sf::Vector2f> vendorsPosition(4);
+    vector<sf::Vector2f> transportPosition(4);
+    vector<sf::Vector2f> minesPosition(4);
     for (int i = 0; i < 4; i++) {
         float xPos = 350.0f + (i % 4) * 150.0f;
         float yPos = 180.0f;
@@ -223,30 +225,30 @@ int main()
         minesPosition[i] = sf::Vector2f(xPos, yPos);
     }
 
-    std::vector<Cards*> handCards1(15);
+    vector<Cards*> handCards1(15);
     // 玩家1手上可以放牌的位置
-    std::vector<sf::Vector2f> targetPosForCard1(15);
+    vector<sf::Vector2f> targetPosForCard1(15);
     for (int i = 0; i < targetPosForCard1.size(); i++) {
         targetPosForCard1[i] = sf::Vector2f(30.0f + i * 95.0f, 810.0f);
     }
 
-    std::vector<Cards*> reservedCards1(3);
+    vector<Cards*> reservedCards1(3);
     // 玩家1手上可以放預定牌的位置
-    std::vector<sf::Vector2f> targetPosForReservedCards1(3);
+    vector<sf::Vector2f> targetPosForReservedCards1(3);
     for (int i = 0; i < targetPosForReservedCards1.size(); i++) {
         targetPosForReservedCards1[i] = sf::Vector2f(30.0f + i * 95.0f, 660.0f);
     }
 
-    std::vector<Cards*> handCards2(15);
+    vector<Cards*> handCards2(15);
     // 玩家2手上可以放牌的位置
-    std::vector<sf::Vector2f> targetPosForCard2(15);
+    vector<sf::Vector2f> targetPosForCard2(15);
     for (int i = 0; i < targetPosForCard2.size(); i++) {
         targetPosForCard2[i] = sf::Vector2f(30.0f + i * 95.0f, -200.0f);
     }
 
-    std::vector<Cards*> reservedCards2(3);
+    vector<Cards*> reservedCards2(3);
     // 玩家2手上可以放預定牌的位置
-    std::vector<sf::Vector2f> targetPosForReservedCards2(3);
+    vector<sf::Vector2f> targetPosForReservedCards2(3);
     for (int i = 0; i < targetPosForReservedCards2.size(); i++) {
         targetPosForReservedCards2[i] = sf::Vector2f(30.0f + i * 95.0f, 10.0f);
     }
@@ -272,8 +274,8 @@ int main()
     bool secondTurn = false;
 
     // 記錄一人一局中拿了哪幾個寶石
-    int gemPerMove = 0;
-    int gemPerRound[3] = {-1, -1, -1};
+    int diamondPerMove = 0;
+    int diamondPerRound[3] = {-1, -1, -1};
 
     while (window.isOpen()) {
         sf::Event evnt;
@@ -346,22 +348,22 @@ int main()
                             break;
                         }
 
-                        // take gems
+                        // take diamonds
                         else {
-                            if (gemPerMove < 3) {
+                            if (diamondPerMove < 3) {
                                 for (int i = 0; i < 6; i++) {
-                                    if (gem[i]->getShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                                        gemPerRound[gemPerMove++] = i;
-                                        std::cout << 1 << std::endl;
+                                    if (diamond[i]->getShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                                        diamondPerRound[diamondPerMove++] = i;
+                                        cout << 1 << endl;
                                     }
                                 }
                             }
 
-                            if (gemPerMove == 3) {
+                            if (diamondPerMove == 3) {
                                 firstTurn = false;
                                 for (int i = 0; i < 3; i++) {
-                                    gemPerRound[i] = -1;
-                                    gemPerMove = 0;
+                                    diamondPerRound[i] = -1;
+                                    diamondPerMove = 0;
                                 }
                             }
                             break;
@@ -474,20 +476,20 @@ int main()
                             break;
                         }
                         else {
-                            if (gemPerMove < 3) {
+                            if (diamondPerMove < 3) {
                                 for (int i = 0; i < 6; i++) {
-                                    if (gem[i]->getShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                                        gemPerRound[gemPerMove++] = i;
-                                        std::cout << 2 << std::endl;
+                                    if (diamond[i]->getShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                                        diamondPerRound[diamondPerMove++] = i;
+                                        cout << 2 << endl;
                                     }
                                 }
                             }
 
-                            if (gemPerMove == 3) {
+                            if (diamondPerMove == 3) {
                                 firstTurn = true;
                                 for (int i = 0; i < 3; i++) {
-                                    gemPerRound[i] = -1;
-                                    gemPerMove = 0;
+                                    diamondPerRound[i] = -1;
+                                    diamondPerMove = 0;
                                 }
                             }
                             break;
@@ -567,16 +569,16 @@ int main()
 
         // 畫寶石
         for (int i = 0; i < 6; i++) {
-            window.draw(*(gem[i]->getShape()));
-            window.draw(*(gemPlayer1[i]->getShape()));
-            window.draw(*(gemPlayer2[i]->getShape()));
+            window.draw(*(diamond[i]->getShape()));
+            window.draw(*(diamondPlayer1[i]->getShape()));
+            window.draw(*(diamondPlayer2[i]->getShape()));
         }
         
         // 寫出寶石個數
         for (int i = 0; i < 6; i++) {
-            window.draw(GemNumBoard[i]);
-            window.draw(GemNumPlayer1[i]);
-            window.draw(GemNumPlayer2[i]);
+            window.draw(diamondNumBoard[i]);
+            window.draw(diamondNumPlayer1[i]);
+            window.draw(diamondNumPlayer2[i]);
         }
 
         // print out discount
@@ -598,15 +600,15 @@ int main()
             window.draw(*(mines[i]->getShape()));
         }
 
-        // 分數、discount、gem
+        // 分數、discount、diamond
         window.draw(ScoreBoard1);
         window.draw(ScoreBoard2);
         window.draw(player1Score);
         window.draw(player2Score);
         window.draw(Discount1);
         window.draw(Discount2);
-        window.draw(Gem1);
-        window.draw(Gem2);
+        window.draw(diamond1);
+        window.draw(diamond2);
 
 
         window.display();
