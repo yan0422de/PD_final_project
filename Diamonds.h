@@ -25,7 +25,7 @@ enum DiamondType    // Global
 class Diamond
 {
 public:
-    vector<int> diamonds;
+    int diamonds[DIAMOND_TYPE_NUM];
     
     // Constructor
     Diamond();
