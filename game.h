@@ -12,10 +12,11 @@
 
 using namespace std;
 
+static const int Players_CNT = 2;
+
 class Game {
 private:
 
-    static const int Players_CNT = 2;
     static const int Card_ROWS = 3;
     static const int Card_COLS = 4;
     static const int GEMS = 6;
@@ -66,9 +67,11 @@ private:
     void clear_memory();
     
 public:
-    //constructor
+    // constructor
     Game();
-
+    // destructor
+    ~Game();
+    
     //main gameplay
     void playGame();
     
