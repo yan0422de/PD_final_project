@@ -32,17 +32,10 @@ public:
     Diamond(int num);
     // Operator Overloading
     bool operator!=(const Diamond& d) const;
-    bool operator>=(const Diamond& d) const;
     const Diamond& operator-=(const Diamond& d);
-    const int operator-(const Diamond& d);
     int operator[] (int i) const;
     int& operator[] (int i);
     
-    // int getPre();
-    // int getNext();
-    // int getPreOpist();
-    // int getNextOpist();
 };
 
 #endif // Diamond.h
-
