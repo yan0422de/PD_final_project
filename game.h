@@ -3,6 +3,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,12 +15,23 @@ using namespace std;
 
 
 class Game {
-private:
+public:
 
     static const int Card_ROWS = 3;
     static const int Card_COLS = 4;
     static const int GEMS = 6;
     static const int Players_CNT = 2;
+
+    int taked_gems = 0;
+    // command
+    int command[5] = { 0, 0, 0, 0, 0 };     // buy, buy_reserve, tak2gems, tak3gems, reserve
+    // card pos
+    Card* boughtcard;
+    int cardpos[2] = { 0, 0 };              // cardRow, cardCol
+    // reserved card
+    Card* reservedCard;                     // reservedCard
+    // color
+    int dimondcolor[6] = { 0, 0, 0, 0, 0, 0 };      // white, black, red, green, blue, gold
 
     // create the car deck
     void createCardDeck();
@@ -32,7 +44,7 @@ private:
     int showedTransportCnt = 4;
     int showedVendorsCnt = 4;
     // represent player 1 or 2
-    int playerNum = 0;
+    int playerNum = 1;
 
     // store each level of cards
     vector<Card*> mines;
@@ -43,9 +55,9 @@ private:
     bool game_over = false;
     bool player1_turn = true;
     bool isTied = false;
-    
+
     Player* players[Players_CNT];
-   
+
     Card* board[Card_ROWS][Card_COLS];
 
     //Main game loop functions
@@ -54,10 +66,10 @@ private:
 
     void get_command(int playerNum);
 
-    // æ›´æ–°è¢«è²·èµ°çš„ç‰Œï¼ˆç´€éŒ„è©²ç­‰ç´šçš„ç‰Œå·²ç¶“æ‹¿å¹¾å¼µå‡ºä¾†ï¼‰ï¼Œæœ‰å€‹å‡½æ•¸è¦æª¢æŸ¥æ’å †ï¼ˆ40, 30, 20ï¼‰é‚„æœ‰æ²’æœ‰ç‰Œ
+    // §ó·s³Q¶R¨«ªºµP¡]¬ö¿ı¸Óµ¥¯ÅªºµP¤w¸g®³´X±i¥X¨Ó¡^¡A¦³­Ó¨ç¼Æ­nÀË¬d±Æ°ï¡]40, 30, 20¡^ÁÙ¦³¨S¦³µP
     void update_board(int cardRow, int cardCol);
 
-    bool Player_Wins();
+    int Player_Wins();
 
     // Specific action functions
 
@@ -65,16 +77,15 @@ private:
 
     // clearing memory
     void clear_memory();
-    
-public:
+
     // constructor
     Game();
     // destructor
     ~Game();
-    
+
     //main gameplay
     void playGame();
-    
+
 };
 
 #endif
