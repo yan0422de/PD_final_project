@@ -11,17 +11,17 @@ int main()
     Game myGame;
    
 
-    // 建一個視窗畫面
+    // Set up windows
     sf::RenderWindow window(sf::VideoMode(1024, 800), "Splendor", sf::Style::Close | sf::Style::Resize, sf::ContextSettings{ 0, 0, 8 });
 
-    // 背景(大小、材質、位置)
+    // background(size、texture、position)
     sf::RectangleShape background(sf::Vector2f(1024.0f, 800.0f));
     sf::Texture backgroundTexture;
     background.setPosition(0.f, 0.0f);
     backgroundTexture.loadFromFile("background.png");
     background.setTexture(&backgroundTexture);
 
-    // 視窗用的牌堆
+    // deck on board
     sf::RectangleShape deckVendor(sf::Vector2f(75.0f, 130.0f));
     sf::Texture deckVendorTexture;
     deckVendor.setPosition(200.f, 180.0f);
@@ -112,12 +112,12 @@ int main()
     discountPlayer2[4].setFillColor(sf::Color::Blue);
     discountPlayer2[5].setFillColor(sf::Color::Yellow);
 
-    // 寶石數
+    // Diamond numbers
     vector<sf::Text> diamondNumBoard(6, sf::Text("4", font));
     vector<sf::Text> diamondNumPlayer1(6, sf::Text("0", font));
     vector<sf::Text> diamondNumPlayer2(6, sf::Text("0", font));
 
-    // 寶石的位置
+    // Diamond position
     vector<Diamond*> diamond(6);
     vector<Diamond*> diamondPlayer1(6);
     vector<Diamond*> diamondPlayer2(6);
@@ -127,7 +127,7 @@ int main()
         diamondPlayer2[i] = new Diamond(0, sf::CircleShape(20.f), sf::Color::White, sf::Vector2f(550.f + (i % 6) * 50.f, 35.f));
     }
 
-    // 寶石的顏色
+    // Diamond color
     diamond[1]->getShape()->setFillColor(sf::Color::Black);
     diamond[2]->getShape()->setFillColor(sf::Color::Red);
     diamond[3]->getShape()->setFillColor(sf::Color::Green);
@@ -147,7 +147,7 @@ int main()
     diamondPlayer2[5]->getShape()->setFillColor(sf::Color::Yellow);
     
 
-    // 牌桌上可以放牌的位置
+    // Create position for board
     vector<sf::Vector2f> vendorsPosition(4);
     vector<sf::Vector2f> transportPosition(4);
     vector<sf::Vector2f> minesPosition(4);
@@ -177,34 +177,34 @@ int main()
     
 
     vector<Card*> handCards1(15);
-    // 玩家1手上可以放牌的位置
+    // Create position for bought cards for player1
     vector<sf::Vector2f> targetPosForCard1(15);
     for (int i = 0; i < targetPosForCard1.size(); i++) {
         targetPosForCard1[i] = sf::Vector2f(30.0f + i * 95.0f, 810.0f);
     }
 
     vector<Card*> reservedCards1(3, nullptr);
-    // 玩家1手上可以放預定牌的位置
+    // Create position for reserved cards for player1
     vector<sf::Vector2f> targetPosForReservedCards1(3);
     for (int i = 0; i < targetPosForReservedCards1.size(); i++) {
         targetPosForReservedCards1[i] = sf::Vector2f(25.0f + i * 120.0f, 660.0f);
     }
 
     vector<Card*> handCards2(15);
-    // 玩家2手上可以放牌的位置
+    // Create position for bought cards for player2
     vector<sf::Vector2f> targetPosForCard2(15);
     for (int i = 0; i < targetPosForCard2.size(); i++) {
         targetPosForCard2[i] = sf::Vector2f(30.0f + i * 95.0f, -200.0f);
     }
 
     vector<Card*> reservedCards2(3, nullptr);
-    // 玩家2手上可以放預定牌的位置
+    // Create position for reserved cards for player2
     vector<sf::Vector2f> targetPosForReservedCards2(3);
     for (int i = 0; i < targetPosForReservedCards2.size(); i++) {
         targetPosForReservedCards2[i] = sf::Vector2f(25.0f + i * 120.0f, 10.0f);
     }
 
-    // 紀錄玩家手牌及整個牌組到第幾張
+    // document player's bought card and the number of the deck
     int cardnumOfplayer1 = 0;
     int cardnumOfplayer2 = 0;
     int reservedCardnumOfplayer1[3] = { 0, 0, 0 };
@@ -214,13 +214,13 @@ int main()
     int vendorsNum = 4;
     int transportNum = 4;
 
-    // 拿到甚麼顏色的寶石
+    // Diamond color
     int color = 0;
 
-    // 卡片及寶石移動速度
+    // moving speed
     float moveSpeed = 5.0f;
 
-    // 記錄一人一局中拿了哪幾個寶石
+    // 記document every player every round taken diamonds
     int diamondPerMove = 0;
     int diamondPerRound[3] = { -1, -1, -1 };
 
@@ -527,13 +527,13 @@ int main()
                     case 3:
                         std::cout << "tie\n"; break;
                     }
-                    myGame.clear_memory();
+                    // myGame.clear_memory();
                 }
 
             }
         }
 
-        // 把牌移到手上
+        // move the board card to hands
         for (int i = 0; i < myGame.vendors.size(); i++) {
             myGame.vendors[i]->moveToTarget(moveSpeed);
         }
@@ -548,20 +548,54 @@ int main()
 
         window.clear();
 
-        // 畫背景、牌堆
+        // draw background、deck
         window.draw(background);
         window.draw(deckVendor);
         window.draw(deckTransport);
         window.draw(deckMine);
 
-        // 畫寶石
+        
+        // document which player's turn
+        if (myGame.playerNum == 1 && myGame.Player_Wins() == 0) {
+            sf::ConvexShape arrow1(7);
+            arrow1.setPoint(0, sf::Vector2f(0.f, 50.f));
+            arrow1.setPoint(1, sf::Vector2f(20.f, 0.f));
+            arrow1.setPoint(2, sf::Vector2f(10.f, 0.f));
+            arrow1.setPoint(3, sf::Vector2f(10.f, -50.f));
+            arrow1.setPoint(4, sf::Vector2f(-10.f, -50.f));
+            arrow1.setPoint(5, sf::Vector2f(-10.f, 0.f));
+            arrow1.setPoint(6, sf::Vector2f(-20.f, 0.f));
+
+            arrow1.setFillColor(sf::Color::Red);
+            arrow1.setPosition(sf::Vector2f(950.f, 640.f));
+
+            window.draw(arrow1);
+            
+        }
+        else if (myGame.playerNum == 2 && myGame.Player_Wins() == 0) {
+            sf::ConvexShape arrow2(7);
+            arrow2.setPoint(0, sf::Vector2f(0.f, -50.f));
+            arrow2.setPoint(1, sf::Vector2f(20.f, 0.f));
+            arrow2.setPoint(2, sf::Vector2f(10.f, 0.f));
+            arrow2.setPoint(3, sf::Vector2f(10.f, 50.f));
+            arrow2.setPoint(4, sf::Vector2f(-10.f, 50.f));
+            arrow2.setPoint(5, sf::Vector2f(-10.f, 0.f));
+            arrow2.setPoint(6, sf::Vector2f(-20.f, 0.f));
+
+            arrow2.setFillColor(sf::Color::Red);
+            arrow2.setPosition(sf::Vector2f(950.f, 145.f));
+
+            window.draw(arrow2);
+        }
+        
+        // draw diamonds
         for (int i = 0; i < 6; i++) {
             window.draw(*(diamond[i]->getShape()));
             window.draw(*(diamondPlayer1[i]->getShape()));
             window.draw(*(diamondPlayer2[i]->getShape()));
         }
 
-        // 寫出寶石個數
+        // show the number of diamonds
         // update
         for (int i = 0; i < 6; i++) {
             diamondNumBoard[i] = sf::Text(std::to_string(diamond_bank[i]), font);
@@ -603,7 +637,7 @@ int main()
             window.draw(discountPlayer2[i]);
         }
 
-        // 畫牌的位置
+        // draw card's position
         for (int i = 0; i < vendorsNum; i++) {
             window.draw(*(myGame.vendors[i]->getShape()));
         }
@@ -630,7 +664,7 @@ int main()
         player2Score.setStyle(sf::Text::Bold);
         player2Score.setFillColor(sf::Color::White);
 
-        // 分數、discount、diamond
+        // score、discount、diamond
         window.draw(ScoreBoard1);
         window.draw(ScoreBoard2);
         window.draw(player1Score);
@@ -640,6 +674,24 @@ int main()
         window.draw(diamond1);
         window.draw(diamond2);
 
+        // display which player win
+        if (myGame.Player_Wins() == 1) {
+            window.clear();
+            window.draw(background);
+            sf::Text win1("PLAYER 1 WIN !!!", font, 100);
+            win1.setPosition(130, 300);
+            win1.setFillColor(sf::Color::Black);
+            window.draw(win1);
+        }
+
+        if (myGame.Player_Wins() == 2) {
+            window.clear();
+            window.draw(background);
+            sf::Text win2("PLAYER 2 WIN !!!", font, 100);
+            win2.setPosition(130, 300);
+            win2.setFillColor(sf::Color::Black);
+            window.draw(win2);
+        }
 
         window.display();
     }
